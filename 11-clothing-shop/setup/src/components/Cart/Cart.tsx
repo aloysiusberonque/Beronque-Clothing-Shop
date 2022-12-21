@@ -5,12 +5,12 @@ import { ProductCard } from "../ProductCard";
 import { ProductsWrapper, Title } from "./Cart.styled";
 
 export const Cart = () => {
-  const { items, totalCost } = useContext(ShopContext);
+  const { shopItems, shopTotalCost } = useContext(ShopContext);
   return (
     <>
-      <Title>Your cart totalCost is {totalCost}.00$</Title>
+      <Title>Your cart totalCost is {shopTotalCost}.00$</Title>
       <ProductsWrapper>
-        {items.map((clothingItem: Product, index) => (
+        {shopItems.map((clothingItem: Product, index) => (
           <ProductCard {...clothingItem} key={index} />
         ))}
       </ProductsWrapper>

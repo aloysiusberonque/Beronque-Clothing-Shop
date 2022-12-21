@@ -8,6 +8,10 @@ type AddButtonProps = {
   isInCart: boolean;
 };
 
+type AddWishlistProps = {
+  isInWishlist: boolean;
+};
+
 export const Wrapper = styled.div<WrapperProps>`
   display: grid;
   align-items: flex-end;
@@ -22,7 +26,7 @@ export const Wrapper = styled.div<WrapperProps>`
   position: relative;
 `;
 
-export const AddButton = styled.div<AddButtonProps>`
+export const AddCartButton = styled.div<AddButtonProps>`
   position: absolute;
   display: flex;
   justify-content: center;
@@ -32,6 +36,32 @@ export const AddButton = styled.div<AddButtonProps>`
   width: 20px;
   height: 20px;
   background: ${(props) => (props.isInCart ? '#E55336' : '#60c95d')};
+  border-radius: 50%;
+  padding: 5px;
+  cursor: pointer;
+
+  :hover {
+    transform: scale(1.2);
+    transition: 1s;
+  }
+
+  p {
+    font-size: 20px;
+    margin: 0;
+    color: white;
+  }
+`;
+
+export const AddWishlistButton = styled.div<AddWishlistProps>`
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  top: 20px;
+  left: 20px;
+  width: 20px;
+  height: 20px;
+  background: ${(props) => (props.isInWishlist ? '#E55336' : '#60c95d')};
   border-radius: 50%;
   padding: 5px;
   cursor: pointer;

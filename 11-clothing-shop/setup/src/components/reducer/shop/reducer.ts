@@ -6,19 +6,19 @@ export const shopReducer = (state: ShopState, action: ShopAction) => {
     case ShopActionType.ADD:
       return {
         ...state,
-        items: action.payload,
+        shopItems: action.payload,
       };
 
     case ShopActionType.REMOVE:
       return {
         ...state,
-        items: action.payload,
+        shopItems: action.payload,
       };
 
     case ShopActionType.UPDATE:
       return {
         ...state,
-        totalCost: action.payload,
+        shopTotalCost: action.payload,
       };
     default:
       return state;

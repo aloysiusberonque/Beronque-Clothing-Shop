@@ -1,15 +1,15 @@
 import { Product } from "../../../models";
 
 export type ShopState = {
-    items: Product[],
-    totalCost: number,
+    shopItems: Product[],
+    shopTotalCost: number,
     addToCart: any,
-    removeItem: any
+    removeCartItem: any,
 }
 
 export const initialState = {
-    items: [],
-    totalCost: 0,
+    shopItems: [],
+    shopTotalCost: 0,
     addToCart: null,
-    removeItem: null,
+    removeCartItem: null,
 }
