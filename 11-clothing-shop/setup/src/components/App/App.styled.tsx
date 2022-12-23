@@ -1,12 +1,11 @@
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  margin: 40px;
-
   display: grid;
-  row-gap: 20px;
+  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
   justify-content: center;
+  margin: 40px;
+  row-gap: 20px;
 `;
 
 export const TitleWrapper = styled.div`
@@ -18,20 +17,20 @@ export const TitleWrapper = styled.div`
   row-gap: 10px;
 
   a {
-    text-decoration: none;
-    font-weight: bold;
     color: #000;
+    font-weight: bold;
+    text-decoration: none;
   }
 `;
 
 export const LinksWrapper = styled.div`
   display: flex;
-  width: 100%;
   justify-content: space-evenly;
+  width: 100%;
 
   a {
-    text-decoration: none;
     color: #bb7250;
+    text-decoration: none;
 
     :hover {
       color: #bb7250;

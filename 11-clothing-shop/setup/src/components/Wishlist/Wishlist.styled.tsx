@@ -6,7 +6,7 @@ export const Title = styled.p`
   margin-top: 20px;
 `;
 
-export const ProductsWrapper = styled.div`
+export const WishlistWrapper = styled.div`
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(2, auto);

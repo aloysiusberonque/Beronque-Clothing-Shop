@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 type WrapperProps = {
   background: string;
@@ -13,22 +13,24 @@ export const Wrapper = styled.div<WrapperProps>`
   background-size: 300px;
   background: ${(props) => props.background && `url(${props.background}) center no-repeat`};
   border-radius: 20px;
-  box-shadow: 0 20px 40px rgba(52, 53, 99, 0.2), 0 1px 3px rgba(0, 0, 0, 0.05);
-  display: flex;
+  box-shadow: 0 15px 20px rgba(52, 53, 99, 0.2), 0 1px 3px rgba(0, 0, 0, 0.01);
+  display: grid;
   height: 340px;
   overflow: hidden;
   position: relative;
   width: 240px;
-`;''
+`;
+("");
 
 export const ButtonWrapper = styled.div<WrapperProps>`
   display: flex;
   flex-direction: "row";
-`;''
+`;
+("");
 
 export const AddButton = styled.div<AddButtonProps>`
   align-items: center;
-  background: ${(props) => (props.isInCart ? '#E55336' : '#60c95d')};
+  background: ${(props) => (props.isInCart ? "#E55336" : "#60c95d")};
   border-radius: 50%;
   cursor: pointer;
   display: flex;
@@ -52,30 +54,59 @@ export const AddButton = styled.div<AddButtonProps>`
   }
 `;
 
-export const WishlistButton = styled.div<AddButtonProps>`
+export const PlusButton = styled.div<AddButtonProps>`
   align-items: center;
-  background: ${(props) => (props.isInCart ? '#E55336' : '#60c95d')};
   border-radius: 50%;
   cursor: pointer;
-  display: flex;
-  height: 20px;
   justify-content: center;
-  left: 20px;
-  padding: 5px;
-  position: absolute;
-  top: 20px;
-  width: 20px;
-
-  :hover {
-    transform: scale(1.2);
-    transition: 1s;
-  }
+  padding: 4px 12px;
 
   p {
-    color: white;
+    color: blue;
     font-size: 20px;
     margin: 0;
   }
+
+  :hover {
+    transform: scale(1.5);
+    transition: 1s;
+  }
+
+`;
+
+export const MinusButton = styled.div<AddButtonProps>`
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  justify-content: center;
+  padding: 4px 12px;
+
+  p {
+    color: red;
+    font-size: 20px;
+    margin: 0;
+  }
+
+  :hover {
+    transform: scale(1.5);
+    transition: 1s;
+  }
+
+`;
+
+export const QuantityContainer = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: "row";
+`;
+
+export const QuantityButtonContainer = styled.div`
+  background: white;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: "row";
+  justify-content: start;
+  margin-left: 12px;
 `;
 
 export const TextContainer = styled.div`
@@ -98,14 +129,6 @@ export const Title = styled.p`
 export const SubTitle = styled.p`
   color: rgba(255, 255, 255, 0.7);
   font-size: 15px;
-  font-weight: normal;
-  margin: 0;
-`;
-
-export const Icon = styled.p`
-  align-self: center;
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 5px;
   font-weight: normal;
   margin: 0;
 `;
