@@ -1,19 +1,23 @@
 import { useContext } from "react";
-import { WishlistContext, } from "../context/wishlist";
-import { Product } from "../../models";
+
+import { WishlistWrapper, Title } from "./Wishlist.styled";
+
 import { ProductCard } from "../ProductCard";
-import { ProductsWrapper, Title } from "./Wishlist.styled";
+
+import { WishlistContext } from "../../contexts";
 
 export const Wishlist = () => {
-  const { wishlistItems, wishlistTotalCost } = useContext(WishlistContext);
+  const wishlist = useContext(WishlistContext);
+
   return (
     <>
-      <Title>Your cart totalCost is {wishlistTotalCost}.00$</Title>
-      <ProductsWrapper>
-        {wishlistItems.map((clothingItem: Product, index) => (
-          <ProductCard {...clothingItem} key={index} />
+      <Title>{wishlist.length ? 'Your Wishlist' : 'Wishlist is Empty' }</Title>
+      <WishlistWrapper>
+        {/* Maps all ProductCard present in WishlistContext and supplies all the data present in WishlistContext to ProductCard*/}
+        {wishlist.map((data, index) => (
+          <ProductCard key={index} {...data} />
         ))}
-      </ProductsWrapper>
+      </WishlistWrapper>
     </>
   );
 };

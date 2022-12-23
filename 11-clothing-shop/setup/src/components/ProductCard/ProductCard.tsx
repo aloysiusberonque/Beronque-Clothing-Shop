@@ -1,70 +1,92 @@
-import { AddCartButton, AddWishlistButton, SubTitle, TextContainer, Title, Wrapper, } from './ProductCard.styled';
+import { useContext } from "react";
+import { FaGift } from "react-icons/fa";
+import { MdOutlineShoppingCart, MdOutlineRemoveShoppingCart } from "react-icons/md";
 
-import { useState, useEffect, useContext } from 'react';
-import { Product } from '../../models';
-import { ShopContext } from '../context/shop';
-import { WishlistContext } from '../context/wishlist';
+import {
+  AddButton,
+  Icon,
+  SubTitle,
+  TextContainer,
+  Title,
+  WishlistButton,
+  Wrapper,
+} from "./ProductCard.styled";
 
-export const ProductCard = ({ name, imageUrl, price }: Product) => {
-  const { shopItems, addToCart, removeCartItem } = useContext(ShopContext);
-  const { wishlistItems, addToWishlist, removeWishlistItem } = useContext(WishlistContext);
-  const [isInCart, setIsInCart] = useState(false);
-  const [isInWishlist, setIsInWishlist] = useState(false);
+import { 
+  add, 
+  addWishlist, 
+  remove, 
+  removeWishlist,
+} from "../../reducers";
+import {
+  CartContext,
+  CartDispatchContext,
+  WishlistContext,
+  WishlistDispatchContext,
+} from "../../contexts";
+import { Product } from "../../models";
 
-  useEffect(() => {
-    const itemInCart = shopItems.find((clothingItem: { name: string; }) => clothingItem.name === name);
+export const ProductCard = (item: Product) => {
+  const cart = useContext(CartContext);
+  const wishlist = useContext(WishlistContext);
+  const cartDispatch = useContext(CartDispatchContext);
+  const wishlistDispatch = useContext(WishlistDispatchContext);
 
-    if (itemInCart) {
-      setIsInCart(true);
-    } else {
-      setIsInCart(false);
-    }
-  }, [shopItems, name]);
+  const { 
+    id, 
+    imageUrl, 
+    name, 
+    price,
+  } = item;
 
-  useEffect(() => {
-    const itemInWishlist = wishlistItems.find((clothingItem: { name: string; }) => clothingItem.name === name);
-    if (itemInWishlist) {
-      setIsInWishlist(true);
-    } else {
-      setIsInWishlist(false);
-    }
-
-  }, [wishlistItems, name]);
-
-  const handleCartClick = () => {
-    const clothingItem = { name, imageUrl, price };
-    if (isInCart) {
-      removeCartItem(clothingItem);
-      setIsInCart(false);
-    } else {
-      addToCart(clothingItem);
-      setIsInCart(true);
-    }
+  // Checks if the specific ProductCard has any duplicates inside the CartContext
+  // Returns true if there is a duplicate
+  function checkCart(id: number) {
+    return cart.some((item: Product) => item.id === id);
   }
 
-  const handleWishlistClick = () => {
-    const clothingItem = { name, imageUrl, price };
-    if (isInWishlist) {
-      removeWishlistItem(clothingItem);
-      setIsInWishlist(false);
-    } else {
-      addToWishlist(clothingItem);
-      setIsInWishlist(true);
-    }
+  // Checks if the specific ProductCard has any duplicates inside the WishlistContext
+  // Returns true if there is a duplicate
+  function checkWishlist(id: number) {
+    return wishlist.some((item: Product) => item.id === id);
   }
 
   return (
     <Wrapper background={imageUrl}>
-      <AddCartButton isInCart={isInCart} onClick={handleCartClick}>
-        <p>{isInCart ? "-" : "+"}</p>
-      </AddCartButton>
-      <AddWishlistButton isInWishlist={isInWishlist} onClick={handleWishlistClick}>
-        <p>{isInWishlist ? "-" : "+"}</p>
-      </AddWishlistButton>
+
+      <WishlistButton
+        isInCart={checkWishlist(id)}
+        onClick={() => {
+          checkWishlist(id)
+          // If the Product is already in the wishlist, you can remove it from the wishlist
+            ? wishlistDispatch(removeWishlist({ ...item }))
+          // If the Product is not yet in the wishlist, you can add it to the wishlist
+            : wishlistDispatch(addWishlist({ ...item }));
+        }}
+      >
+        <Icon>
+          <FaGift />
+        </Icon>
+      </WishlistButton>
+      
+      <AddButton
+        isInCart={checkCart(id)}
+        onClick={() => {
+          checkCart(id)
+          // If the Product is already in the cart, you can remove it from the cart
+            ? cartDispatch(remove({ ...item }))
+          // If the Product is not yet in the cart, you can add it to the cart
+            : cartDispatch(add({ ...item }));
+        }}
+      >
+        <p>{checkCart(id) ? <MdOutlineRemoveShoppingCart /> : <MdOutlineShoppingCart />}</p>
+      </AddButton>
+
       <TextContainer>
         <Title>{name}</Title>
         <SubTitle>{price}.00$</SubTitle>
       </TextContainer>
+
     </Wrapper>
   );
 };

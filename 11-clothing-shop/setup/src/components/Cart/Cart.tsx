@@ -1,17 +1,24 @@
 import { useContext } from "react";
-import { ShopContext, } from "../context/shop";
-import { Product } from "../../models";
-import { ProductCard } from "../ProductCard";
+
 import { ProductsWrapper, Title } from "./Cart.styled";
 
+import { CartProductCard } from "../CartProductCard";
+
+import { CartContext } from "../../contexts";
+
 export const Cart = () => {
-  const { shopItems, shopTotalCost } = useContext(ShopContext);
+  const cart = useContext(CartContext);
+
   return (
     <>
-      <Title>Your cart totalCost is {shopTotalCost}.00$</Title>
+      <Title>{cart.length ? 'Your Cart' : 'Cart is Empty'}</Title>
       <ProductsWrapper>
-        {shopItems.map((clothingItem: Product, index) => (
-          <ProductCard {...clothingItem} key={index} />
+        {/* Maps all CartProductCard present in CartContext and supplies all the data present in CartContext to CartProductCard*/}
+        {cart.map((data, index) => (
+          <CartProductCard
+            key={index}
+            {...data}
+          />
         ))}
       </ProductsWrapper>
     </>
